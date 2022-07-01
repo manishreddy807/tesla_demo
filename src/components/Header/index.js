@@ -6,11 +6,17 @@ import { selectCar } from "../../features/carSlice";
 import {v4 as uuidv4} from 'uuid';
 import { Wrapper, ImgContainer, Menu, RightMenu, CustomMenu,
     HiddenCustomMenu, BurgerNav, CustomCloseIconWrapper, CustomCloseIcon } from "./styles";
+import { auth } from "../../config/firebase";
 
 function Header (){
     const [burgerMenuStatus, setBurgerMenuStatus] = useState(false)
     const cars= useSelector(selectCar)
-    const history = useNavigate()
+    const history = useNavigate();
+
+    const signOut = () => {
+        auth.signOut()
+    }
+
     return(
         <Wrapper>
             <ImgContainer>
@@ -31,6 +37,7 @@ function Header (){
             </Menu>
             <RightMenu>
                 <a className="shop">Shop</a>
+                <a onClick={signOut}>Sign Out</a>
                 <a onClick={() => history('/register')} >Tesla Account</a>
                 <IconButton>
                     <CustomMenu
